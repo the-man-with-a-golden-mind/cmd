@@ -1,5 +1,6 @@
 (define-library (cmd command)
-  (import (otus lisp))
+  (import (otus lisp)
+          (owl parse))
 
   (export 
    make-cmd
@@ -21,9 +22,9 @@
       (Pid command In Out)
      ; CLOSING PORTS
      (for-each close-port (list (car In) (cdr Out)))
-    (let ((response (try-parse parser (port-bytestream (car Out)) #false)))
+    (let ((response (try-parse parser (port->bytestream (car Out)) #false)))
       (close-port (car Out))
-      result))
+      response))
     
     (define (make-curl-cmd command parser)
       (make-cmd "usr/bin/curl" command parser))
