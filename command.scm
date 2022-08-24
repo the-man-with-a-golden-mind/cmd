@@ -10,7 +10,7 @@
     ; dir - show files
 
 
-    (define (make-cmd path command)
+    (define (make-cmd path command parser)
       (define In (syscall 22))
       (define Out (syscall 22))
 
@@ -21,10 +21,10 @@
       (Pid command In Out)
      ; CLOSING PORTS
      (for-each close-port (list (car In) (cdr Out)))
-     (if (> (size Out) 0)
-      (car Out)
-      Out))
+    (let ((response (try-parse parser (port-bytestream (car Out)) #false)))
+      (close-port (car Out))
+      result))
     
-    (define (make-curl-cmd command)
-      (make-cmd "usr/bin/curl" command))
+    (define (make-curl-cmd command parser)
+      (make-cmd "usr/bin/curl" command parser))
     ))
