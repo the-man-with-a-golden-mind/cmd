@@ -1,5 +1,5 @@
 (define *path* (cons "../"  *path*))
-
+(print *path*)
 (import (owl parse))
 (import (cmd command))
 
@@ -9,8 +9,8 @@
 
 (define test-make-cmd-ls
   (display "Testing CMD LS...")
-  (let* ((response (make-cmd "/bin/ls" (list "ls" "./") get-string)))
-    (assert (size (car response)) ===> 47))
+  (let* ((response (make-cmd "/bin/cat" (list "cat" "command.scm") get-string)))
+    (assert (size (car response)) ===> 791))
     (display "ok \n"))
 
 (define tests 

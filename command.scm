@@ -10,7 +10,6 @@
     ; Add: make-http-req rest-type body headers
     ; dir - show files
 
-
     (define (make-cmd path command parser)
       (define In (syscall 22))
       (define Out (syscall 22))
