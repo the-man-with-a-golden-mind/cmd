@@ -9,8 +9,8 @@
 
 (define test-make-cmd-ls
   (display "Testing CMD LS...")
-  (let* ((response (make-cmd "/bin/cat" (list "cat" "command.scm") get-string)))
-    (assert (size (car response)) ===> 791))
+  (let* ((response (make-cmd "/bin/ls" (list "ls" "-la") get-string)))
+    (assert (> (size (car response)) 0) ===> #true))
     (display "ok \n"))
 
 (define tests 
